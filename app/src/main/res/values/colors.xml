@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#11A4C3</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#42aa46</color>
+    <color name="colorTextNumber">#4E7279</color>
+    <color name="colorButtonOperator">#12a4c2</color>
+    <color name="colorButtonEqual">#42AA46</color>
+    <color name="colorBackground">#F0F0F0</color>
+    <color name="colorBackgroudNumber">#fbfbfb</color>
+    <color name="colorBackgroudOperator">#f3f4f4</color>
+    <color name="colorBackgroudSlideDown">#DEE3E3</color>
+    <color name="colorTextSlideDown">#4B5658</color>
+    <color name="colorCalculatorError">#F40056</color>
+    <color name="colorABC">#8A000000</color>
+</resources>
