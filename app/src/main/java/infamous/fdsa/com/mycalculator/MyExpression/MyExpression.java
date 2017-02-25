@@ -30,9 +30,11 @@ public class MyExpression {
 
             for (Token tok : tokens) {
                 if (tok.getType() == Token.NUMBER_TOKEN) {
+                    //Nếu token thuộc loại số thì lấy giá trị ra và đẩy vào trong stack
                     double valueNumber = ((NumberToken) tok).getValue();
                     result.push(valueNumber);
                 } else if (tok.getType() == Token.OPERATOR_TOKEN) {
+                    //Nếu token thuộc loại toán tử thì lấy giá trị ra và đẩy vào trong stack
                     OperatorToken o = (OperatorToken) tok;
 
                     double rightValue = result.pop();

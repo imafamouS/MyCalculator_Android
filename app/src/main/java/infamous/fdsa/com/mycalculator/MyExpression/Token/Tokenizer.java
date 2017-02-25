@@ -11,12 +11,17 @@ public class Tokenizer {
     public ArrayList<Token> tokens;
     private String expression;
 
+    //Hàm khởi tạo
     public Tokenizer(String expression) {
         this.expression = expression;
         this.tokens = this.parse2ArrayTokens();
     }
 
-    //Hàm chuyển đổi các toán hạng, toán tử thành các đối tượng tương ứng
+
+    /**
+     * Hàm chuyển đổi các toán hạng, toán tử thành các đối tượng tương ứng
+     * @return Mảng các đối tượng Token
+     */
     private ArrayList<Token> parse2ArrayTokens() {
 
         List<String> arrayToken = splitExpression2Tokens(this.expression);
@@ -25,23 +30,27 @@ public class Tokenizer {
 
         for (String tok : arrayToken) {
             if (tok.equals(""))
+                //Bỏ qua cái kí tự rỗng
                 continue;
 
             if (isNumber(tok)) {
+                //Nếu là số thì khởi tạo đối tượng Token số
                 NumberToken number = new NumberToken(Double.parseDouble(tok));
                 resultTokens.add(number);
             } else if (isOpen(tok)) {
-
+                //Nếu là ( khởi tạo đối tượng token open
                 OpenToken opentoken = new OpenToken();
                 resultTokens.add(opentoken);
             } else if (isClose(tok)) {
-
+                //Nếu là ( khởi tạo đối tượng token open
                 CloseToken closetoken = new CloseToken();
                 resultTokens.add(closetoken);
             } else if (Operator.isAllowedCharacter(tok)) {
-
+                //Kiểm tra xem toán tử đầu vào có nằm trong danh sách các toán tử cho phép ko
+                //
+                //Khởi tạo toán tử dựa trên biểu tượng (symbol)
                 Operator o = Operator.buildOperator(tok);
-
+                //Khởi tạo đối tượng token toán tử
                 OperatorToken oToken = new OperatorToken(o);
 
                 resultTokens.add(oToken);
@@ -52,7 +61,13 @@ public class Tokenizer {
         return resultTokens;
     }
 
-    //Tách chuỗi đầu vào thành cái toán hạng và toán tử
+    /**
+     *
+     * Tách chuỗi đầu vào thành cái toán hạng và toán tử
+     * Ví dụ: 2+(3*4): sau khi thực hiện hàm trả về 2,+,(,*,4,)
+     * @param expression: biểu thức truyền vào
+     * @return List<String>
+     */
     private List<String> splitExpression2Tokens(String expression) {
         // Remove whitespace
         expression = expression.trim();
