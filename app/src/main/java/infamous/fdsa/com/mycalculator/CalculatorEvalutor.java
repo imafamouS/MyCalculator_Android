@@ -22,10 +22,11 @@ public class CalculatorEvalutor {
         return result;
     }
 
+    //Hàm trả về hậu tố
     public String getPostfix() {
         return postfix;
     }
-
+    //Hàm reset postfix
     public void reset() {
         this.postfix = "";
     }

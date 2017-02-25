@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    //Hàm đổi màu của biểu thức
     private String changeColor(String input) {
         String str = "";
         for (int i = 0; i < input.length(); i++) {
@@ -198,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
         et.setSelection(positionLastCharacter);
     }
 
+    //Thay đổi trang thái
     private void setState(CalculatorState state) {
         if (currentState != state) {
             currentState = state;
@@ -218,15 +219,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Kiểm tra xem biểu thức có kết thúc bằng dấu +-/* không
     private boolean isEndWithOperator() {
         return expression2show.endsWith("+") || expression2show.endsWith("-")
                 || expression2show.endsWith("×") || expression2show.endsWith("÷");
     }
-
+    //Kiểm tra xem có thiếu dấu )
     private boolean isDoneWithBracket() {
         return mCalcInputText.getOpen() == mCalcInputText.getClose();
     }
-
+    //Trạng thái của Calculator
     public enum CalculatorState {
         INPUT, ERROR, RESULT
     }

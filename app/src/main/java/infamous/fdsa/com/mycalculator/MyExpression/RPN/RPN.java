@@ -11,6 +11,8 @@ import infamous.fdsa.com.mycalculator.MyExpression.Token.Tokenizer;
 
 public class RPN {
 
+    
+    //Hàm chuyển đổi biểu thức dạng infix sang dạng postfix
     public static Token[] convertInfix2Postfix(String expression) {
         Stack<Token> stackOperator = new Stack<>();
         List<Token> output = new ArrayList<>();
@@ -34,8 +36,10 @@ public class RPN {
                 }
                 stackOperator.push(tok);
             } else if (tok.getType() == Token.OPEN_TOKEN) {
+                //Nếu là dấu (
                 stackOperator.push(tok);
             } else if (tok.getType() == Token.CLOSE_TOKEN) {
+                //Nếu là dấu )
                 while (!stackOperator.empty() && !(stackOperator.peek().getType() == Token.OPEN_TOKEN)) {
                     output.add(stackOperator.pop());
                 }
@@ -44,10 +48,12 @@ public class RPN {
                 output.add(tok);
             }
         }
+        //Đẩy các toán tử còn lại ra
         while (!stackOperator.empty()) {
             output.add(stackOperator.pop());
         }
 
         return (Token[]) output.toArray(new Token[output.size()]);
     }
+    //Source :http://www.sanfoundry.com/java-program-shunting-yard-algorithm/
 }

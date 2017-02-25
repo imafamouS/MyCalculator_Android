@@ -17,8 +17,8 @@ public class CalculatorInputText {
     private String output_expression;
 
     /**
-     * @open:Biến đếm số lượng "("
-     * close:Biến đếm số lượng ")"
+     * @param open:Biến đếm số lượng "("
+     * @param close:Biến đếm số lượng ")"
      */
     private int open = 0;
     private int close = 0;
@@ -33,27 +33,28 @@ public class CalculatorInputText {
     public CalculatorInputText(String input) {
         this.set(input);
     }
-
+    //Hàm trả về giá trị của biến close
     public int getClose() {
         return close;
     }
-
+    //Hàm trả về giá trị của biến open
     public int getOpen() {
         return open;
     }
-
+    //Hàm giảm giá trị 1 biến open
     public void minusClose() {
         if (this.close <= 0)
             return;
         this.close--;
     }
-
+    //Hàm giảm giá trị 1 biến open
     public void minusOpen() {
         if (this.open <= 0)
             return;
         this.open--;
     }
 
+    //Hàm reset CalculatorInputText
     public void reset() {
         this.set("");
         open = 0;
@@ -63,7 +64,7 @@ public class CalculatorInputText {
     /**
      * Hàm để gán giá trị cho Class
      *
-     * @input: Chuổi đầu vào
+     * @param input: Chuổi đầu vào
      */
     public void set(String input) {
         this.output_show = new StringBuilder();
@@ -87,7 +88,7 @@ public class CalculatorInputText {
     /**
      * Hàm xử lí kí tự sẽ xuất hiện kế kiếp
      *
-     * @character kí tự tiếp theo
+     * @param character kí tự tiếp theo
      */
     public void append(String character) {
         int lengthCurrentString = this.output_show.length(); //Độ dài của biểu thức hiện tại
