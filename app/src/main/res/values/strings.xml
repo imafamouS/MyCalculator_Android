@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Calculator</string>
+    <string name="app_name">Máy tính</string>
     <string name="symbol_btn_clear">C</string>
     <string name="symbol_btn_delete">DEL</string>
     <string name="symbol_btn_add">+</string>

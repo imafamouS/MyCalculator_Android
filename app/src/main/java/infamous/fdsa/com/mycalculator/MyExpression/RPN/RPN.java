@@ -22,6 +22,7 @@ public class RPN {
         for (Token tok : tokenizer.tokens) {
             if (tok.getType() == Token.OPERATOR_TOKEN) {
                 //Nếu token hiện tại là toán tử
+
                 while (!stackOperator.empty() && stackOperator.peek().getType() == Token.OPERATOR_TOKEN) {
 
                     Operator o1 = ((OperatorToken) tok).getOperator();

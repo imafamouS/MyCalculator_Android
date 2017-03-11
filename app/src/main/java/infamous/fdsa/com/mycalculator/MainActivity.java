@@ -133,7 +133,8 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.ERROR_MISSING_BRACKETS), Toast.LENGTH_SHORT).show();
                 return;
             } else {
-
+                if(mCalcInputText.getExpresstion()==null||mCalcInputText.getExpresstion().length()<0)
+                    return;
                 Double result = mCalcEval.evaluate(mCalcInputText.getExpresstion());
                 if (result == null) {
                     setState(CalculatorState.ERROR);
@@ -218,8 +219,6 @@ public class MainActivity extends AppCompatActivity {
                 viewExp.append("\n");
                 viewExp.append(Html.fromHtml(errorString));
 
-            } else {
-                return;
             }
         }
     }
@@ -272,7 +271,6 @@ public class MainActivity extends AppCompatActivity {
                 viewExp.append("\n");
                 viewExp.append(Html.fromHtml(changeColorResult(Double.parseDouble(historyEntity.getResult()))));
                 viewExp.append("\n\n");
-
             }
         }catch (Exception e){
 

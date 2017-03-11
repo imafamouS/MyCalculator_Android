@@ -49,8 +49,6 @@ public class MyExpression {
             System.out.println("Bad expression");
             return null;
         }
-
-
     }
 
     //Hàm trả về biểu thức hậu tố

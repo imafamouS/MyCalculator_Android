@@ -59,7 +59,7 @@ public class CalculatorInput {
         close = 0;
         ;
     }
-
+    //Hàm đặt lại biểu thức
     public void set(String input) {
         this.builder = new SpannableStringBuilder(input);
     }
@@ -204,7 +204,7 @@ public class CalculatorInput {
                         //+ nhập ± => -
                         removeLast(lengthCurrentString);
                         appendStringShow = "-";
-                        ;
+
                         break;
                     } else if (lastCharacter == '×') {
                         //× nhập ± => ""
@@ -234,13 +234,12 @@ public class CalculatorInput {
                     if (lastCharacter == '.') {
                         //3. nhập () => 3.
                         appendStringShow = "";
-                        ;
+
                         break;
                     }
                     if (Character.isDigit(lastCharacter) && open == 0 && close == 0) {
                         //3 nhập () => 3*(
                         appendStringShow = "×(";
-                        ;
                         open++;
                         break;
                     } else if (!Character.isDigit(lastCharacter) && open == 0 && close == 0) {
@@ -254,7 +253,6 @@ public class CalculatorInput {
                             if (Character.isDigit(lastCharacter)) {
                                 //3+(3 nhập () => 3+(3)
                                 appendStringShow = ")";
-                                ;
                                 close++;
                                 break;
                             } else if (lastCharacter == '(') {
@@ -273,7 +271,10 @@ public class CalculatorInput {
                                     if (lengthCurrentString >= 2 && builder.charAt(lengthCurrentString - 2) == '(') {
                                         removeLast(lengthCurrentString);
                                         appendStringShow = "0-(";
-                                        ;
+                                        open++;
+                                        break;
+                                    } else {
+                                        appendStringShow = "(";
                                         open++;
                                         break;
                                     }
@@ -288,7 +289,6 @@ public class CalculatorInput {
                             if (lastCharacter == ')') {
                                 //3+((3)) nhập () => 3+((3))*(
                                 appendStringShow = "×(";
-                                ;
                                 open++;
                                 break;
                             } else if (!Character.isDigit(lastCharacter)) {
@@ -364,11 +364,12 @@ public class CalculatorInput {
         showDecimalFormat();
         Log.d(LOG_INPUT_TAG,this.getExpresstion());
     }
-    //Hàm hiện phân cách phần ngàng
+
+    //Hàm hiện phân cách phần ngàn
     private void showDecimalFormat(){
         int countDigit=0;
         for(int i=builder.length()-1;i>-1;i--){
-            //Nếu số lượng chữ số
+            //Đếm số lượng chữ số
             char ch=builder.charAt(i);
             if(Character.isDigit(ch)||ch=='.'||ch==','){
                 countDigit++;
@@ -387,35 +388,30 @@ public class CalculatorInput {
         }
     }
 
+    //Thêm , giữa các phần ngàn
     public String getDecimalFormattedFromString(String value)
     {
-        //Thêm , giữa các phần ngàn
         StringTokenizer lst = new StringTokenizer(value, ".");
         String str1 = value;
         String str2 = "";
-        if (lst.countTokens() > 1)
-        {
+        if (lst.countTokens() > 1) {
             str1 = lst.nextToken();
             str2 = lst.nextToken();
         }
         String str3 = "";
         int i = 0;
         int j = -1 + str1.length();
-        if (str1.charAt(-1 + str1.length()) == '.')
-        {
+        if (str1.charAt(-1 + str1.length()) == '.') {
             j--;
             str3 = ".";
         }
-        for (int k = j;; k--)
-        {
-            if (k < 0)
-            {
+        for (int k = j; ; k--) {
+            if (k < 0) {
                 if (str2.length() > 0)
                     str3 = str3 + "." + str2;
                 return str3;
             }
-            if (i == 3)
-            {
+            if (i == 3) {
                 str3 = "," + str3;
                 i = 0;
             }
