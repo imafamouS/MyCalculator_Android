@@ -2,11 +2,8 @@ package infamous.fdsa.com.mycalculator;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
 import android.text.Html;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,29 +14,33 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
-
-import infamous.fdsa.com.mycalculator.MyExpression.MyExpression;
-import infamous.fdsa.com.mycalculator.MyExpression.Token.*;
 
 public class MainActivity extends AppCompatActivity {
 
     private final String LOG_BUTTON_TAG = "Button ";
 
-    boolean isResult;
-    private CalculatorInput mCalcInputText;
-    private CalculatorEvalutor mCalcEval = new CalculatorEvalutor();
-    private TextView viewExp;
-    private ScrollView scrollView;
-    private SpannableStringBuilder lastExpression = new SpannableStringBuilder();
-    private double lastResult;
-    private List<HistoryEntity> listHistory;
+    private CalculatorInput mCalcInputText; //Lớp thực hiện việc xây dụng biểu thức
+    private CalculatorEvalutor mCalcEval = new CalculatorEvalutor(); //Lớp thực hiện việc tính toán
+
+    private TextView viewExp; //TextView hiện biểu thức
+    private ScrollView scrollView; //Thnanh cuộn cho TextView
+
+    private SpannableStringBuilder lastExpression = new SpannableStringBuilder(); //Biểu thức mới nhất
+    private double lastResult; //Kết quả mới nhất
+    private List<HistoryEntity> listHistory; //Danh sách các phép toán đã thực hiện
+    boolean isResult; //Cờ hiệu kiểm tra xem đã biểu thức đã thực hiện chưa
+
+    //Trạng thái của chương trình
+    //ERORR: Bị lỗi
+    //INPUT: Đang nhập
+    //RESULT: Đã thực hiện biểu thức
     private CalculatorState currentState = CalculatorState.INPUT;
 
 
-
+    //Hàm khởi tạo activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
                 viewExp.setText(mCalcInputText.getBuilder());
 
+                //Lăn thanh cuộn xuống phía dưới
                 scrollView.fullScroll(View.FOCUS_DOWN);
 
                 setState(CalculatorState.INPUT);
@@ -102,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         int currentLength = currentExpression.length();
         //Lấy kí tự cuối cùng
         String deleteChar = currentExpression.charAt((currentLength - 1)) + "";
-
+        //Kiểm tra xem kí tự xoá
         if (deleteChar.equals("("))
             mCalcInputText.minusOpen();
         else if (deleteChar.equals(")"))
@@ -137,13 +139,14 @@ public class MainActivity extends AppCompatActivity {
                     setState(CalculatorState.ERROR);
                     return;
                 }
-
+                //Cập nhật 2 biến: lastExpression và lastResult
                 lastExpression = mCalcInputText.getBuilder();
                 lastResult=result;
-
+                //Hiện kết quả
                 showResult();
+                //Lăn thanh cuộn
                 autoScrollTextView();
-
+                //Đặt lại trạng thái
                 setState(CalculatorState.RESULT);
             }
         }catch (Exception e){
@@ -154,11 +157,13 @@ public class MainActivity extends AppCompatActivity {
 
     //Nhấn nút clear
     private void onClearClick() {
+
+        //Reset lớp xây dụng biểu thức và lớp tính toán
         mCalcInputText.reset();
         mCalcEval.reset();
-
+        //Reset TextView
         viewExp.setText("");
-
+        //Đặt lại trạng thái
         setState(CalculatorState.INPUT);
     }
 
@@ -167,10 +172,12 @@ public class MainActivity extends AppCompatActivity {
         View v = (LinearLayout) findViewById(R.id.layoutNumber);
 
         if (listHistory.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "History is empty", Toast.LENGTH_SHORT).show();
+            //Khi không có lịch sử hiển thị
+            Toast.makeText(getApplicationContext(), getString(R.string.ERROR_HISTORY), Toast.LENGTH_SHORT).show();
             return;
         }
         if (v.getVisibility() == View.GONE) {
+            //Khi Layout Number bị ẩn
             if (currentState == CalculatorState.RESULT) {
                 viewExp.setText(lastExpression);
                 showResult();
@@ -180,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
             v.setVisibility(View.VISIBLE);
             scrollView.fullScroll(View.FOCUS_DOWN);
         } else {
+            //Khi Layout Number đang hiện
             showHistory();
             v.setVisibility(View.GONE);
         }
@@ -209,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
                 final String errorString = "<font color='#F40056'>" + getResources().getString(R.string.ERROR_EVALUE) + "</font>";
                 viewExp.append("\n");
                 viewExp.append(Html.fromHtml(errorString));
+
             } else {
                 return;
             }
@@ -222,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Đổi màu đáp án
+    //Đổi màu kết quả
     private String changeColorResult(double result) {
 
         return "<font color='#42aa46'> = " + formatResult(result) + "</font>";
@@ -257,7 +266,6 @@ public class MainActivity extends AppCompatActivity {
     private void showHistory() {
         viewExp.setText("");
         try{
-
             for(int i=listHistory.size()-1;i>-1;i--){
                 HistoryEntity historyEntity=listHistory.get(i);
                 viewExp.append(historyEntity.getExpression());
@@ -270,15 +278,15 @@ public class MainActivity extends AppCompatActivity {
 
         }
         scrollView.fullScroll(View.FOCUS_UP);
-
     }
 
 
 
     //Kiểm tra xem biểu thức có kết thúc bằng dấu +-/* không
     private boolean isEndWithOperator() {
-        return this.mCalcInputText.getBuilder().toString().endsWith("+") || this.mCalcInputText.getBuilder().toString().endsWith("-")
-                || this.mCalcInputText.getBuilder().toString().endsWith("×") || this.mCalcInputText.getBuilder().toString().endsWith("÷");
+        String check=this.mCalcInputText.getBuilder().toString();
+        return check.endsWith("+") || check.endsWith("-")
+                || check.endsWith("×") || check.endsWith("÷");
     }
 
     //Kiểm tra xem có thiếu dấu )

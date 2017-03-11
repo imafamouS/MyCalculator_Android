@@ -246,7 +246,7 @@ public class CalculatorInput {
                     } else if (!Character.isDigit(lastCharacter) && open == 0 && close == 0) {
                         //3+ nhập () => 3+(
                         appendStringShow = "(";
-                        ;
+
                         open++;
                         break;
                     } else {
@@ -260,7 +260,7 @@ public class CalculatorInput {
                             } else if (lastCharacter == '(') {
                                 //3+( nhập () => 3+((
                                 appendStringShow = "(";
-                                ;
+
                                 open++;
                                 break;
                             } else if (lastCharacter == ')') {
@@ -280,7 +280,6 @@ public class CalculatorInput {
                                 } else {
                                     //3*((3+ nhập () thành 3*((3+(
                                     appendStringShow = "(";
-                                    ;
                                     open++;
                                     break;
                                 }
@@ -295,12 +294,10 @@ public class CalculatorInput {
                             } else if (!Character.isDigit(lastCharacter)) {
                                 //3+((3))+ nhập () => 3+((3))+(
                                 appendStringShow = "(";
-                                ;
                                 open++;
                                 break;
                             } else if (Character.isDigit(lastCharacter)) {
                                 appendStringShow = "×(";
-                                ;
                                 open++;
                                 break;
                             }
@@ -316,13 +313,11 @@ public class CalculatorInput {
                     } else if (lastCharacter == ')') {
                         //(3) nhập . => (3)*0.
                         appendStringShow = "×0.";
-                        ;
 
                         break;
                     } else if (!Character.isDigit(lastCharacter)) {
                         //3+ nhập . => 3+0.
                         appendStringShow = "0.";
-                        ;
                         break;
                     } else {
 
@@ -353,13 +348,11 @@ public class CalculatorInput {
                 default:
                     if (lastCharacter == ')') {
                         // ((3)) nhập 3=> ((3))*3
-
                         appendStringShow = "×" + character;
 
                         break;
                     } else {
                         //nhập số
-
                         appendStringShow = character;
 
                         break;
@@ -368,11 +361,11 @@ public class CalculatorInput {
         }
 
         builder.append(changeColorOperator(appendStringShow));
-        showDecimalFormatt();
+        showDecimalFormat();
         Log.d(LOG_INPUT_TAG,this.getExpresstion());
     }
     //Hàm hiện phân cách phần ngàng
-    private void showDecimalFormatt(){
+    private void showDecimalFormat(){
         int countDigit=0;
         for(int i=builder.length()-1;i>-1;i--){
             //Nếu số lượng chữ số

@@ -26,7 +26,7 @@ public class RPN {
 
                     Operator o1 = ((OperatorToken) tok).getOperator();
                     Operator o2 = ((OperatorToken) stackOperator.peek()).getOperator();
-                    //So sánh độ ưu tiên của
+                    //So sánh độ ưu tiên
                     if ((o1.isleftAssociative() && o1.getPrecedence() <= o2.getPrecedence())
                             || (o1.getPrecedence() < o2.getPrecedence())) {
                         output.add(stackOperator.pop());

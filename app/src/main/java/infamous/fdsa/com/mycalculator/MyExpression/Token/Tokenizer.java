@@ -31,20 +31,23 @@ public class Tokenizer {
 
         for (String tok : arrayToken) {
             if (tok.equals(""))
-                //Bỏ qua cái kí tự rỗng
+                //Bỏ qua các kí tự rỗng
                 continue;
 
             if (isNumber(tok)) {
                 //Nếu là số thì khởi tạo đối tượng Token số
                 NumberToken number = new NumberToken(Double.parseDouble(tok));
+
                 resultTokens.add(number);
             } else if (isOpen(tok)) {
                 //Nếu là ( khởi tạo đối tượng token open
                 OpenToken opentoken = new OpenToken();
+
                 resultTokens.add(opentoken);
             } else if (isClose(tok)) {
                 //Nếu là ( khởi tạo đối tượng token open
                 CloseToken closetoken = new CloseToken();
+
                 resultTokens.add(closetoken);
             } else if (Operator.isAllowedCharacter(tok)) {
                 //Kiểm tra xem toán tử đầu vào có nằm trong danh sách các toán tử cho phép ko
@@ -64,7 +67,7 @@ public class Tokenizer {
 
     /**
      * Tách chuỗi đầu vào thành cái toán hạng và toán tử
-     * Ví dụ: 2+(3*4): sau khi thực hiện hàm trả về 2,+,(,*,4,)
+     * Ví dụ: 2+(-3.1*4): sau khi thực hiện hàm trả về 2,+,(,-3.1,*,4,)
      *
      * @param expression: biểu thức truyền vào
      * @return List<String>

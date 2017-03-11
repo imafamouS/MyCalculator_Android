@@ -13,4 +13,5 @@
     <string name="ERROR_ENDWITHOPERATOR">Expression cannot end with operator</string>
     <string name="ERROR_MISSING_BRACKETS">Missing ")"</string>
     <string name="ERROR_EVALUE">Bad expression!</string>
+    <string name="ERROR_HISTORY">History is empty!</string>
 </resources>
