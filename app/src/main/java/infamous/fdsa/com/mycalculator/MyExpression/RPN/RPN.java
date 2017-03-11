@@ -11,7 +11,7 @@ import infamous.fdsa.com.mycalculator.MyExpression.Token.Tokenizer;
 
 public class RPN {
 
-    
+
     //Hàm chuyển đổi biểu thức dạng infix sang dạng postfix
     public static Token[] convertInfix2Postfix(String expression) {
         Stack<Token> stackOperator = new Stack<>();

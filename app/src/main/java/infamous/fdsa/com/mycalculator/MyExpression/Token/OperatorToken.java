@@ -9,6 +9,7 @@ public class OperatorToken extends Token {
 
     /**
      * Hàm khởi tạo đối tượng toán tử
+     *
      * @param operator: toán tử truyền vào
      */
     public OperatorToken(Operator operator) {
@@ -16,6 +17,7 @@ public class OperatorToken extends Token {
         // TODO Auto-generated constructor stub
         this.operator = operator;
     }
+
     //Hàm trả về kiểu toán tử của đối tượng token toán tử
     public Operator getOperator() {
         return operator;

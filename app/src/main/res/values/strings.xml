@@ -8,7 +8,7 @@
     <string name="symbol_btn_divide">÷</string>
     <string name="symbol_btn_openorclose">()</string>
     <string name="symbol_btn_equal">=</string>
-    <string name="symbol_btn_unary">±</string>
+    <string name="symbol_btn_unary">+/-</string>
 
     <string name="ERROR_ENDWITHOPERATOR">Expression cannot end with operator</string>
     <string name="ERROR_MISSING_BRACKETS">Missing ")"</string>

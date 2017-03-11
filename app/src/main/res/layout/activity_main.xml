@@ -2,58 +2,53 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
     // Layout show result
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_weight="2"
         android:background="@color/colorBackground"
         android:gravity="right"
         android:orientation="vertical"
         android:weightSum="1">
-
-        <EditText
-            android:id="@+id/textExpression"
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:gravity="right"
-            android:textSize="14pt"
-            android:editable="false"
-            android:focusable="false"
-            android:windowSoftInputMode="stateHidden"
-            />
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            android:fillViewport="true">
+            <TextView
+                android:id="@+id/textExpression"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="16pt"
+                android:textColor="#517A80"
+                android:background="@android:color/transparent"
+                />
+        </ScrollView>
 
-        <EditText
-            android:id="@+id/textResult"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="right"
-            android:textSize="14pt"
-            android:editable="false"
-            android:focusable="false"
-            android:windowSoftInputMode="stateHidden"
-            android:background="@android:color/transparent"
-            />
+
     </LinearLayout>
     // Layout
-
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="2.6"
+        android:layout_width="match_parent"
+        android:layout_height="15pt"
         android:background="@color/colorBackgroudSlideDown">
 
         <ImageButton
             android:id="@+id/btnSlideDown"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/ripple"
+            android:background="@color/colorBackgroudSlideDown"
             android:src="@drawable/down"
             android:textColor="@color/colorTextSlideDown"
+            android:onClick="onButtonClick"
             android:textSize="8pt"
             />
     </LinearLayout>
@@ -75,21 +70,21 @@
 
             <Button
                 android:id="@+id/btnClear"
-                style="@style/MyButtonStyle"
+                style="@style/MyOperatorButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="@string/symbol_btn_clear"
                 android:textColor="@color/colorButtonOperator" />
 
             <Button
                 android:id="@+id/btnDivide"
-                style="@style/MyButtonStyle"
+                style="@style/MyOperatorButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="@string/symbol_btn_divide"
                 android:textColor="@color/colorButtonOperator" />
 
             <Button
                 android:id="@+id/btnMultiply"
-                style="@style/MyButtonStyle"
+                style="@style/MyOperatorButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="@string/symbol_btn_multiply"
                 android:textColor="@color/colorButtonOperator" />
@@ -99,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@drawable/ripple"
+                android:background="@drawable/ripple_operator"
                 android:backgroundTint="@color/colorBackgroudOperator"
                 android:onClick="onButtonClick"
                 android:tint="@color/colorButtonOperator"
@@ -115,7 +110,7 @@
 
             <Button
                 android:id="@+id/btnNum7"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
 
                 android:onClick="onButtonClick"
                 android:text="7"
@@ -124,7 +119,7 @@
             <Button
 
                 android:id="@+id/btnNum8"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="8"
                 android:textColor="@color/colorTextNumber" />
@@ -132,7 +127,7 @@
             <Button
 
                 android:id="@+id/btnNum9s"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="9"
                 android:textColor="@color/colorTextNumber" />
@@ -140,7 +135,7 @@
             <Button
 
                 android:id="@+id/btnSubtract"
-                style="@style/MyButtonStyle"
+                style="@style/MyOperatorButtonStyle"
                 android:onClick="onButtonClick"
 
                 android:text="@string/symbol_btn_subtract"
@@ -157,7 +152,7 @@
             <Button
 
                 android:id="@+id/btnNum4"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="4"
                 android:textColor="@color/colorTextNumber" />
@@ -165,7 +160,7 @@
             <Button
 
                 android:id="@+id/btnNum5"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="5"
                 android:textColor="@color/colorTextNumber" />
@@ -173,14 +168,14 @@
             <Button
 
                 android:id="@+id/btnNum6"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="6"
                 android:textColor="@color/colorTextNumber" />
 
             <Button
                 android:id="@+id/btnPlus"
-                style="@style/MyButtonStyle"
+                style="@style/MyOperatorButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="@string/symbol_btn_add"
                 android:textColor="@color/colorButtonOperator" />
@@ -196,7 +191,7 @@
             <Button
 
                 android:id="@+id/btnNum1"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="1"
                 android:textColor="@color/colorTextNumber" />
@@ -204,7 +199,7 @@
             <Button
 
                 android:id="@+id/btnNum2"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="2"
                 android:textColor="@color/colorTextNumber" />
@@ -212,7 +207,7 @@
             <Button
 
                 android:id="@+id/btnNum3"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="3"
                 android:textColor="@color/colorTextNumber" />
@@ -220,7 +215,7 @@
             <Button
 
                 android:id="@+id/btnOpenOrClose"
-                style="@style/MyButtonStyle"
+                style="@style/MyOperatorButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="@string/symbol_btn_openorclose"
                 android:textColor="@color/colorButtonOperator" />
@@ -235,7 +230,7 @@
 
             <Button
                 android:id="@+id/btnNum0"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="0"
                 android:textColor="@color/colorTextNumber" />
@@ -243,21 +238,21 @@
             <Button
 
                 android:id="@+id/btnDot"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="."
                 android:textColor="@color/colorTextNumber" />
 
             <Button
                 android:id="@+id/btnUnary"
-                style="@style/MyButtonStyle"
+                style="@style/MyNumberButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="@string/symbol_btn_unary"
                 android:textColor="@color/colorTextNumber" />
 
             <Button
                 android:id="@+id/btnEqual"
-                style="@style/MyButtonStyle"
+                style="@style/MyOperatorButtonStyle"
                 android:onClick="onButtonClick"
                 android:text="@string/symbol_btn_equal"
                 android:textColor="@color/colorButtonEqual" />

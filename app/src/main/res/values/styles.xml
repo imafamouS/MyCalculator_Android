@@ -7,11 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="MyButtonStyle">
+    <style name="MyNumberButtonStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
         <item name="android:background">@drawable/ripple</item>
         <item name="android:textSize">@dimen/textSize</item>
+    </style>
+    <style name="MyOperatorButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/ripple_operator</item>
+        <item name="android:textSize">20pt</item>
     </style>
 </resources>

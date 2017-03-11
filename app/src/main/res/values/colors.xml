@@ -8,7 +8,7 @@
     <color name="colorButtonEqual">#42AA46</color>
     <color name="colorBackground">#F0F0F0</color>
     <color name="colorBackgroudNumber">#fbfbfb</color>
-    <color name="colorBackgroudOperator">#f3f4f4</color>
+    <color name="colorBackgroudOperator">#F3F4F4</color>
     <color name="colorBackgroudSlideDown">#DEE3E3</color>
     <color name="colorTextSlideDown">#4B5658</color>
     <color name="colorCalculatorError">#F40056</color>

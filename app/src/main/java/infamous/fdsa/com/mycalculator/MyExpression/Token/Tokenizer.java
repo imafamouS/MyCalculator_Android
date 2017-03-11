@@ -20,6 +20,7 @@ public class Tokenizer {
 
     /**
      * Hàm chuyển đổi các toán hạng, toán tử thành các đối tượng tương ứng
+     *
      * @return Mảng các đối tượng Token
      */
     private ArrayList<Token> parse2ArrayTokens() {
@@ -62,9 +63,9 @@ public class Tokenizer {
     }
 
     /**
-     *
      * Tách chuỗi đầu vào thành cái toán hạng và toán tử
      * Ví dụ: 2+(3*4): sau khi thực hiện hàm trả về 2,+,(,*,4,)
+     *
      * @param expression: biểu thức truyền vào
      * @return List<String>
      */
