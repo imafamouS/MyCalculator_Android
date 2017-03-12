@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         int currentLength = currentExpression.length();
         //Lấy kí tự cuối cùng
         String deleteChar = currentExpression.charAt((currentLength - 1)) + "";
-        //Kiểm tra xem kí tự xoá
+        //Kiểm tra kí tự xoá
         if (deleteChar.equals("("))
             mCalcInputText.minusOpen();
         else if (deleteChar.equals(")"))
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.ERROR_MISSING_BRACKETS), Toast.LENGTH_SHORT).show();
                 return;
             } else {
-                if(mCalcInputText.getExpresstion()==null||mCalcInputText.getExpresstion().length()<0)
+                if(mCalcInputText.getExpresstion()==null||mCalcInputText.getExpresstion().length()<=0)
                     return;
                 Double result = mCalcEval.evaluate(mCalcInputText.getExpresstion());
                 if (result == null) {
