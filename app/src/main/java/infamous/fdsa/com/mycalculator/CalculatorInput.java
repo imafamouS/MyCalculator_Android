@@ -80,11 +80,11 @@ public class CalculatorInput {
         }
         return out.toString();
     }
-
+    //Hàm gọi biểu thức để hiển thị
     public SpannableStringBuilder getBuilder() {
         return this.builder;
     }
-
+    //Hàm thêm vào biểu thức hiện tại toán tự hoặc toán hạng mới
     public void append(String character) {
         int lengthCurrentString = this.builder.length();
         String appendStringShow = "";

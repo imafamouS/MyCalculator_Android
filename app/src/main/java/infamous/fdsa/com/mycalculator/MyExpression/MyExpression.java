@@ -11,9 +11,9 @@ import infamous.fdsa.com.mycalculator.MyExpression.Token.Token;
 
 public class MyExpression {
 
-    private Token[] tokens;
-    private String expression;
-
+    private Token[] tokens; //Các toán tự và toán hạng trong biểu thức
+    private String expression; //Biểu thức
+    //Hàm khởi tạo Class
     public MyExpression(String expression) {
         this.expression = expression;
         this.tokens = RPN.convertInfix2Postfix(expression);

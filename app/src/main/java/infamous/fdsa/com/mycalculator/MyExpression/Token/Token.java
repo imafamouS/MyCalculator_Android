@@ -10,12 +10,12 @@ public abstract class Token {
 
     public Token(int typeToken) {
         this.typeToken = typeToken;
-    }
+    } //Hàm khởi tạo class
 
     public int getType() {
         return typeToken;
-    }
+    } //Hàm trả về loại của đối tượng
 
-    public abstract String toString();
+    public abstract String toString(); //Hàm lấy biểu tượng (symbol) của đối tượng
 
 }
