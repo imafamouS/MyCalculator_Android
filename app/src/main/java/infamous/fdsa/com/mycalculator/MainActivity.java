@@ -1,16 +1,21 @@
 package infamous.fdsa.com.mycalculator;
 
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +42,34 @@ public class MainActivity extends AppCompatActivity {
     private CalculatorState currentState = CalculatorState.INPUT;
 
 
+    int lastLineCount;//Đếm số hàng lượng hàng cuối cùng của TextView dùm để Scale Size textView
+    //Hàm khởi tạo TextWatcher trong sự kiện textChange của TextView (Dùng trong Scale Size TextView)
+    private final TextWatcher mFormulaTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int start, int count, int after) {
+        }
+        //Sau khi thay đổi textView thì chỉnh textSize cho textView lại
+        @Override
+        public void afterTextChanged(Editable editable) {
+            //Kiểm tra số hàng hiện tại là bao nhiêu đề chỉnh size nhỏ lại
+            viewExp.post(new Runnable() {
+                @Override
+                public void run() {
+                    lastLineCount=viewExp.getLineCount();
+                    if(lastLineCount<4){
+                        viewExp.setTextSize(TypedValue.COMPLEX_UNIT_PT,16);
+                    }else if(lastLineCount>4){
+                        viewExp.setTextSize(TypedValue.COMPLEX_UNIT_PT,12);
+                    }
+                }
+            });
+
+        }
+    };
     //Hàm khởi tạo activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +80,12 @@ public class MainActivity extends AppCompatActivity {
         mCalcInputText = new CalculatorInput(this);
 
         viewExp = (TextView) findViewById(R.id.textExpression);
-
+        viewExp.addTextChangedListener(mFormulaTextWatcher);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
 
         listHistory = new ArrayList<>();
     }
+
     //Event button click
     public void onButtonClick(View view) {
         switch (view.getId()) {
@@ -87,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 //Lăn thanh cuộn xuống phía dưới
                 scrollView.fullScroll(View.FOCUS_DOWN);
 
+                //aa();
+
                 setState(CalculatorState.INPUT);
                 break;
         }
@@ -111,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
             mCalcInputText.minusClose();
         //Xoá kí tự cuối cùng
         currentExpression = currentExpression.delete(currentLength - 1, currentLength);
+        mCalcInputText.showDecimalFormat();
 
         viewExp.setText(currentExpression);
     }
@@ -118,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     //Khi nhấn nút bằng
     private void onEqualClick() {
         Log.d(LOG_BUTTON_TAG, " equals clicked");
-        try{
+        try {
             if (isResult == true)
                 return;
 
@@ -133,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.ERROR_MISSING_BRACKETS), Toast.LENGTH_SHORT).show();
                 return;
             } else {
-                if(mCalcInputText.getExpresstion()==null||mCalcInputText.getExpresstion().length()<=0)
+                if (mCalcInputText.getExpresstion() == null || mCalcInputText.getExpresstion().length() <= 0)
                     return;
                 Double result = mCalcEval.evaluate(mCalcInputText.getExpresstion());
                 if (result == null) {
@@ -142,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //Cập nhật 2 biến: lastExpression và lastResult
                 lastExpression = mCalcInputText.getBuilder();
-                lastResult=result;
+                lastResult = result;
                 //Hiện kết quả
                 showResult();
                 //Lăn thanh cuộn
@@ -150,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 //Đặt lại trạng thái
                 setState(CalculatorState.RESULT);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             setState(CalculatorState.ERROR);
         }
 
@@ -202,13 +239,12 @@ public class MainActivity extends AppCompatActivity {
 
             if (currentState == CalculatorState.INPUT) {
                 isResult = false;
-            }
-            else if (currentState == CalculatorState.RESULT) {
+            } else if (currentState == CalculatorState.RESULT) {
                 //Save to history
                 isResult = true;
 
                 HistoryEntity history = new HistoryEntity();
-                history.setResult(lastResult+"");
+                history.setResult(lastResult + "");
                 history.setExpression(this.lastExpression);
 
                 listHistory.add(history);
@@ -245,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     //Chỉnh sửa định dạng kết quả (Bỏ .0)
     private String formatResult(Double result) {
         String text = String.valueOf(result);
@@ -258,31 +295,30 @@ public class MainActivity extends AppCompatActivity {
                 out = text;
             }
         }
-        out=mCalcInputText.getDecimalFormattedFromString(out);
+        out = mCalcInputText.getDecimalFormattedFromString(out);
         return out;
     }
+
     //Hiện lịch sử
     private void showHistory() {
         viewExp.setText("");
-        try{
-            for(int i=listHistory.size()-1;i>-1;i--){
-                HistoryEntity historyEntity=listHistory.get(i);
+        try {
+            for (int i = listHistory.size() - 1; i > -1; i--) {
+                HistoryEntity historyEntity = listHistory.get(i);
                 viewExp.append(historyEntity.getExpression());
                 viewExp.append("\n");
                 viewExp.append(Html.fromHtml(changeColorResult(Double.parseDouble(historyEntity.getResult()))));
                 viewExp.append("\n\n");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         scrollView.fullScroll(View.FOCUS_UP);
     }
 
-
-
     //Kiểm tra xem biểu thức có kết thúc bằng dấu +-/* không
     private boolean isEndWithOperator() {
-        String check=this.mCalcInputText.getBuilder().toString();
+        String check = this.mCalcInputText.getBuilder().toString();
         return check.endsWith("+") || check.endsWith("-")
                 || check.endsWith("×") || check.endsWith("÷");
     }
@@ -296,6 +332,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isOperator(String str) {
         return "+-×÷".indexOf(str.charAt(0)) != -1;
     }
+
 
     //Trạng thái của Calculator
     public enum CalculatorState {

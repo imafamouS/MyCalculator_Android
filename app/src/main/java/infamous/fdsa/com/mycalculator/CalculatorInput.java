@@ -22,13 +22,12 @@ public class CalculatorInput {
 
     private int open = 0; //Đếm số lượng (
     private int close = 0; //Đếm số lượng )
-
-    private int indexStartNumber; //Vị trí toán hạng bắt đầu
+    //Hàm khởi tạo
     public CalculatorInput(Context context) {
         builder = new SpannableStringBuilder();
         this.context = context;
     }
-
+    //Hàm trả về giá trị của biến close
     public int getClose() {
         return close;
     }
@@ -63,7 +62,7 @@ public class CalculatorInput {
     public void set(String input) {
         this.builder = new SpannableStringBuilder(input);
     }
-
+    //Hàm thêm kí tự vào chuỗi hiện tại của biểu thức
     public String getExpresstion() {
         //return (this.builder.toString().replaceAll("×", "*")).replaceAll("÷", "/");
         StringBuilder out=new StringBuilder("");
@@ -352,10 +351,35 @@ public class CalculatorInput {
 
                         break;
                     } else {
-                        //nhập số
-                        appendStringShow = character;
-
-                        break;
+                        if (lastCharacter == '0' && !character.equals("0")) {
+                            //0 nhấn 2 => 2
+                            removeLast(lengthCurrentString);
+                            appendStringShow = character;
+                            break;
+                        } else if (lastCharacter == '0' && character.equals("0")) {
+                            //Không cho nhập 00000000000000
+                            int countDot = 0; //Đếm số . trong số
+                            for (int i = lengthCurrentString - 1; i > 0; i--) {
+                                char currentChar = builder.charAt(i);
+                                char previousChar = builder.charAt(i - 1);
+                                if (Character.isDigit(currentChar)) {
+                                    if (previousChar == '.')
+                                        countDot++;
+                                    else if ("+-×÷".indexOf(Character.toString(previousChar)) != -1) {
+                                        break;
+                                    } else
+                                        continue;
+                                }
+                            }
+                            if (countDot > 0)
+                                appendStringShow = "0";
+                            else
+                                appendStringShow = "";
+                            break;
+                        } else{
+                            appendStringShow = character;
+                            break;
+                        }
                     }
             }
         }
@@ -366,7 +390,7 @@ public class CalculatorInput {
     }
 
     //Hàm hiện phân cách phần ngàn
-    private void showDecimalFormat(){
+    public void showDecimalFormat() {
         int countDigit=0;
         for(int i=builder.length()-1;i>-1;i--){
             //Đếm số lượng chữ số
