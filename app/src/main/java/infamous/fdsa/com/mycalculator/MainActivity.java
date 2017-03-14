@@ -60,14 +60,13 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     lastLineCount=viewExp.getLineCount();
-                    if(lastLineCount<4){
+                    if(lastLineCount<3){
                         viewExp.setTextSize(TypedValue.COMPLEX_UNIT_PT,16);
-                    }else if(lastLineCount>4){
+                    }else if(lastLineCount>3){
                         viewExp.setTextSize(TypedValue.COMPLEX_UNIT_PT,12);
                     }
                 }
             });
-
         }
     };
     //Hàm khởi tạo activity
