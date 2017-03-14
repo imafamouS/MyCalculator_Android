@@ -351,12 +351,7 @@ public class CalculatorInput {
 
                         break;
                     } else {
-                        if (lastCharacter == '0' && !character.equals("0")) {
-                            //0 nhấn 2 => 2
-                            removeLast(lengthCurrentString);
-                            appendStringShow = character;
-                            break;
-                        } else if (lastCharacter == '0' && character.equals("0")) {
+                       if (lastCharacter == '0' && character.equals("0")) {
                             //Không cho nhập 00000000000000
                             int countDot = 0; //Đếm số . trong số
                             for (int i = lengthCurrentString - 1; i > 0; i--) {
@@ -373,13 +368,17 @@ public class CalculatorInput {
                             }
                             if (countDot > 0)
                                 appendStringShow = "0";
-                            else
+                            else if(countDot==0 && builder.charAt(0)=='0')
                                 appendStringShow = "";
+                           else if(countDot==0 && builder.charAt(0)!='0' )
+                                appendStringShow="0";
                             break;
                         } else{
-                            appendStringShow = character;
-                            break;
-                        }
+                           appendStringShow = character;
+                           break;
+                       }
+
+
                     }
             }
         }

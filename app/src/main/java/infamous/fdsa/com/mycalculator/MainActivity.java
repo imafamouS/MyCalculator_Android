@@ -149,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
         mCalcInputText.showDecimalFormat();
 
         viewExp.setText(currentExpression);
+
+        setState(CalculatorState.INPUT);
     }
 
     //Khi nhấn nút bằng
@@ -294,7 +296,12 @@ public class MainActivity extends AppCompatActivity {
                 out = text;
             }
         }
-        out = mCalcInputText.getDecimalFormattedFromString(out);
+        if(result<0){
+            out="-"+mCalcInputText.getDecimalFormattedFromString(out.substring(1));
+        }else{
+            out = mCalcInputText.getDecimalFormattedFromString(out);
+        }
+
         return out;
     }
 
